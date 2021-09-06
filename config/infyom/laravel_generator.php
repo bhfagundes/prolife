@@ -124,7 +124,7 @@ return [
 
     'options' => [
 
-        'softDelete' => true,
+        'softDelete' => false,
 
         'save_schema_file' => true,
 
@@ -164,7 +164,7 @@ return [
 
     'add_on' => [
 
-        'swagger'       => false,
+        'swagger'       => true,
 
         'tests'         => true,
 
@@ -192,8 +192,6 @@ return [
         'created_at'    => 'created_at',
 
         'updated_at'    => 'updated_at',
-
-        'deleted_at'    => 'deleted_at',
     ],
 
     /*
