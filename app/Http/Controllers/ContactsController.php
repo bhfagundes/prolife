@@ -57,11 +57,7 @@ class ContactsController extends AppBaseController
      */
     public function store(CreateContactsRequest $request)
     {
-
         $input = $request->all();
-
-
-
         $path = '/contact/'.Carbon::now().'.'. $input['file']->getClientOriginalExtension();
         Storage::disk('local')->put($path, file_get_contents($input['file']->getRealPath()));
         $input['file'] = $path;
@@ -128,7 +124,10 @@ class ContactsController extends AppBaseController
 
             return redirect(route('contacts.index'));
         }
-
+        Storage::delete($contacts->file);
+        $path = '/contact/'.Carbon::now().'.'. $request->file->getClientOriginalExtension();
+        Storage::disk('local')->put($path, file_get_contents($request->file->getRealPath()));
+        $request->file = $path;
         $contacts = $this->contactsRepository->update($request->all(), $id);
 
         Flash::success('Contacts updated successfully.');

@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use App\Models\Contacts;
 use Illuminate\Http\JsonResponse;
 use Flash;
-class CreateContactsRequest extends FormRequest
+class UpdateContactsRequest extends FormRequest
 {
 
     /**

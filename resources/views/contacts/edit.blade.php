@@ -18,7 +18,7 @@
                               <strong>Edit Contacts</strong>
                           </div>
                           <div class="card-body">
-                              {!! Form::model($contacts, ['route' => ['contacts.update', $contacts->id], 'method' => 'patch']) !!}
+                              {!! Form::model($contacts, ['route' => ['contacts.update', $contacts->id], 'files' => true,'method' => 'patch']) !!}
 
                               @include('contacts.fields')
 
