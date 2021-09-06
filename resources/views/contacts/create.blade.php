@@ -18,7 +18,7 @@
                                 <strong>Create Contacts</strong>
                             </div>
                             <div class="card-body">
-                                {!! Form::open(['route' => 'contacts.store']) !!}
+                                {!! Form::open(['route' => 'contacts.store','files' => true]) !!}
 
                                    @include('contacts.fields')
 

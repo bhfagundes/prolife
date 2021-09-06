@@ -8,7 +8,10 @@ use App\Repositories\ContactsRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
+use Carbon\Carbon;
 use Response;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
 
 class ContactsController extends AppBaseController
 {
@@ -57,8 +60,12 @@ class ContactsController extends AppBaseController
 
         $input = $request->all();
 
-        $contacts = $this->contactsRepository->create($input);
 
+
+        $path = '/contact/'.Carbon::now().'.'. $input['file']->getClientOriginalExtension();
+        Storage::disk('local')->put($path, file_get_contents($input['file']->getRealPath()));
+        $input['file'] = $path;
+        $contacts = $this->contactsRepository->create($input);
         Flash::success('Contacts saved successfully.');
 
         return redirect(route('contacts.index'));

@@ -31,7 +31,7 @@ class CreateContactsRequest extends FormRequest
             'name' => 'required|string|max:255',
             'phone' => 'required|celular_com_ddd',
             'message' => 'required',
-            'file' => 'required|mimes:pdf,doc,docx,odt,txt'
+            'file' => 'required|mimes:doc,docx,pdf,odt,txt|max:500'
         ];
     }
     public function messages()
@@ -42,10 +42,11 @@ class CreateContactsRequest extends FormRequest
             'name.required' => 'Nome é obrigatório!',
             'name.max' => 'Nome deve ter no maximo 255 caracteres!',
             'phone.required' => 'Campo telefone não é obrigatório!',
-            'phone.celular_com_dd' => 'Telefone está no padrão incorreto!',
+            'phone.celular_com_dd' => 'Telefone está no padrão incorreto! Favor utilizar (99)99999-9999',
             'message.required' => 'A mensagem é obrigatória!',
             'file.required' => 'O arquivo é obrigatório!',
             'file.mimes' => 'Extensão de arquivo não aceita!',
+            'file.max' => 'O arquivo ultrapassa o tamanho máximo de 500kb!',
         ];
     }
 
