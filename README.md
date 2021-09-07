@@ -1,56 +1,54 @@
-<h1 align="center"><img src="https://assets.infyom.com/open-source/infyom-logo.png" alt="InfyOm"></h1>
+# Desafio Prolife
 
-CoreUI Generator
-==========================
+> Projeto criado para desenvolver o desafio da Prolife
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+## Instalação
 
-If you are starting fresh new laravel project, then boilerplates can be the best option for you to get started. It gives you a full laravel project with everything installed and published.
+``` bash
+# Clonar Projeto
+git clone https://github.com/bhfagundes/prolife.git
 
-Read [Documentation](http://www.infyom.com/open-source/laravelgenerator/docs/8.0/boilerplates) for detailed installation steps and usage.
+# Instalar dependências
+composer install
 
-## Support Us
+# Gerar arquivo de configuração
+cp .env.example .env
 
-We have created [14+ Laravel packages](https://github.com/InfyOmLabs) and invested a lot of resources into creating these all packages and maintaining them.
+# Gerar key
+php artisan key:generate
 
-You can support us by either sponsoring us or buying one of our paid products. Or help us by spreading the word about us on social platforms via tweets and posts.
+# Preencher as variáveis de ambiente referentes ao e-mail no arquivo .env
+## MAIL_MAILER=smtp
+## MAIL_HOST=HOST
+## MAIL_PORT=587
+## MAIL_USERNAME=
+## MAIL_PASSWORD=
+## MAIL_ENCRYPTION=tls
+## MAIL_FROM_ADDRESS=
+## MAIL_FROM_NAME=
+## DESTINATION_MAIL= 'EMAIL DE QUEM RECEBERA O EMAIL DE CONTATO'
 
-### Sponsors
+# Preencher as variáveis de ambiente referentes ao banco de dados (para este desafio foi utilizado mysql)
+## DB_CONNECTION=mysql
+## DB_HOST=
+## DB_PORT=
+## DB_DATABASE=
+## DB_USERNAME=
+## DB_PASSWORD=
 
-[Become a sponsor](https://opencollective.com/infyomlabs#sponsor) and get your logo on our README on Github with a link to your site.
+# limpar cache de arquivo de configuração
+php artisan config:cache
 
-<a href="https://opencollective.com/infyomlabs#sponsor"><img src="https://opencollective.com/infyomlabs/sponsors.svg?width=890"></a>
+# comando responsavel para que as variaveis do .env possam ser acessadas na aplicacao
+php artisan config:clear
 
-### Backers
+# executar as migrations para o banco de dados
+php artisan migrate
 
-[Become a backer](https://opencollective.com/infyomlabs#backer) and get your image on our README on Github with a link to your site.
+# Startar projeto localmente
+php artisan serve
 
-<a href="https://opencollective.com/infyomlabs#backer"><img src="https://opencollective.com/infyomlabs/backers.svg?width=890"></a>
+```
 
-### Buy our Paid Products
-
-[![InfyJobs](https://assets.infyom.com/open-source/infyjobs-banner.png)](https://1.envato.market/P0ONVj)
-
-You can also check out our other paid products on [CodeCanyon](https://codecanyon.net/user/infyomlabs/portfolio).
-
-### Follow Us
-
-- [Twitter](https://twitter.com/infyom)
-- [Facebook](https://www.facebook.com/infyom)
-- [LinkedIn](https://in.linkedin.com/company/infyom-technologies)
-- [Youtube](https://www.youtube.com/channel/UC8IvwfChD6i7Wp4yZp3tNsQ)
-- [Contact Us](https://infyom.com/contact-us)
-
-## Made with InfyOm Generator
-
-Also, Do not forget to add your website to [Made with InfyOm Generator List](https://github.com/InfyOmLabs/laravel-generator/blob/develop/made-with-generator.md) list.
-
-## Video Tutorials
-
-Checkout [Video Tutorials](https://github.com/shailesh-ladumor/infyom-laravel-generator-tutorial) - **By**: [Shailesh Ladumor](https://github.com/shailesh-ladumor)
-
+## Execução
+Após executar os passos acima, a aplicação deverá estar de pé. Com o link gerado através do último passo, o primeiro passo é acessar a página de registro e criar uma nova conta. Após este registro, basta logar e acessar a tela Contacts. Nesta tela é possível visulizar os dados cadastrados assim como adicionar e excluir registros.
