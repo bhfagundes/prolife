@@ -6,12 +6,14 @@ use App\Http\Requests\CreateContactsRequest;
 use App\Http\Requests\UpdateContactsRequest;
 use App\Repositories\ContactsRepository;
 use App\Http\Controllers\AppBaseController;
+use App\Mail\SendMailContact;
 use Illuminate\Http\Request;
 use Flash;
 use Carbon\Carbon;
 use Response;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class ContactsController extends AppBaseController
 {
@@ -58,10 +60,11 @@ class ContactsController extends AppBaseController
     public function store(CreateContactsRequest $request)
     {
         $input = $request->all();
-        $path = '/contact/'.Carbon::now().'.'. $input['file']->getClientOriginalExtension();
+        $path = 'contact/'.Carbon::now().'.'. $input['file']->getClientOriginalExtension();
         Storage::disk('local')->put($path, file_get_contents($input['file']->getRealPath()));
         $input['file'] = $path;
         $contacts = $this->contactsRepository->create($input);
+        Mail::to(env('DESTINATION_MAIL'))->send(new SendMailContact($contacts));
         Flash::success('Contacts saved successfully.');
 
         return redirect(route('contacts.index'));
@@ -125,11 +128,12 @@ class ContactsController extends AppBaseController
             return redirect(route('contacts.index'));
         }
         Storage::delete($contacts->file);
-        $path = '/contact/'.Carbon::now().'.'. $request->file->getClientOriginalExtension();
+        $path = 'contact/'.Carbon::now().'.'. $request->file->getClientOriginalExtension();
         Storage::disk('local')->put($path, file_get_contents($request->file->getRealPath()));
-        $request->file = $path;
-        $contacts = $this->contactsRepository->update($request->all(), $id);
-
+        $input = $request->all();
+        $input['file']= $path;
+        $contacts = $this->contactsRepository->update($input, $id);
+        Mail::to(env('DESTINATION_MAIL'))->send(new SendMailContact($contacts));
         Flash::success('Contacts updated successfully.');
 
         return redirect(route('contacts.index'));
@@ -153,7 +157,7 @@ class ContactsController extends AppBaseController
 
             return redirect(route('contacts.index'));
         }
-
+        Storage::delete($contacts->file);
         $this->contactsRepository->delete($id);
 
         Flash::success('Contacts deleted successfully.');
