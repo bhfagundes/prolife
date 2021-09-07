@@ -86,8 +86,8 @@ class ContactsController extends AppBaseController
 
             return redirect(route('contacts.index'));
         }
+        return Storage::disk('local')->download($contacts->file);
 
-        return view('contacts.show')->with('contacts', $contacts);
     }
 
     /**
@@ -127,7 +127,7 @@ class ContactsController extends AppBaseController
 
             return redirect(route('contacts.index'));
         }
-        Storage::delete($contacts->file);
+        Storage::disk('local')->delete($contacts->file);
         $path = 'contact/'.Carbon::now().'.'. $request->file->getClientOriginalExtension();
         Storage::disk('local')->put($path, file_get_contents($request->file->getRealPath()));
         $input = $request->all();

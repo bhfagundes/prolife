@@ -17,11 +17,10 @@
             <td>{{ $contacts->email }}</td>
             <td>{{ $contacts->phone }}</td>
             <td>{{ $contacts->message }}</td>
-            <td>{{ $contacts->file }}</td>
+            <td><a href="{{ route('contacts.show', [$contacts->id]) }}" class='btn btn-ghost-success'><i class="fa fa-file"></i></a></td>
                 <td>
                     {!! Form::open(['route' => ['contacts.destroy', $contacts->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>
-                        <a href="{{ route('contacts.show', [$contacts->id]) }}" class='btn btn-ghost-success'><i class="fa fa-eye"></i></a>
                         <a href="{{ route('contacts.edit', [$contacts->id]) }}" class='btn btn-ghost-info'><i class="fa fa-edit"></i></a>
                         {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-ghost-danger', 'onclick' => "return confirm('Are you sure?')"]) !!}
                     </div>
